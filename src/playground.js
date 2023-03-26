@@ -13,8 +13,6 @@ class Playground {
         //    const customer = await Customer.findAll({
         //        attributes: {exclude: ["status"]},
         //    });
-
-
 /*        const customer = await Customer.findAll({
             include: [{
                 model: Contact,
@@ -40,12 +38,34 @@ class Playground {
             limit: 2,
             offset: 2 * 2 - 2, //limit*page - limit
         });
-*/
+
 
         const customer = await Customer.max("createdAt", {
             where: { status: "ACTIVE" }
         });
-        console.log(JSON.stringify(customer, null, 2));
+        const customers = await Customer.scope({
+            method: ["created", new Date(2023, 1, 1)]}).findAll();
+        console.log(JSON.stringify(customers, null, 2));
+
+
+        const customer = await Customer.create({
+            name: "XP Investimentos",
+            email: "contato@xp.com.br",
+        });
+        */
+
+
+        /*const customer = await Customer.findByPk(1);
+        console.log("Antes", JSON.stringify(customer, null, 2));
+
+        const newCustomer = await customer.update({ status: "ACTIVE" });
+        console.log("Depois", JSON.stringify(newCustomer, null, 2));
+    */
+        const customer = await Customer.create({
+            name: "C6 Banck",
+            email: "contato@c6.com.br",
+        });
+
     }
 }
 
